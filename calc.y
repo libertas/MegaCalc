@@ -7,10 +7,13 @@
 }
 %token <double_value> DOUBLE_LITERAL
 %token ADD SUB MUL DIV CR LB RB
-%type <double_value> line expL expH expPri
+%type <double_value> expL expH expPri
 %%
 all:
-    expL
+    line |
+    all line;
+line:
+    expL CR
     {
         printf("%lf\n", $1);
     }
