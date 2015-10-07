@@ -23,6 +23,6 @@
     return DOUBLE_LITERAL;
 }
 . {
-    fprintf(stderr, "Lexical Error!\n");
+    printf("Lexical Error!\n");
 }
 %%

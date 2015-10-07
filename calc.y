@@ -10,15 +10,9 @@
 %type <double_value> line expL expH expPri
 %%
 all:
-    line CR
+    expL
     {
         printf("%lf\n", $1);
-    }
-line:
-    expL |
-    LB line RB
-    {
-        $$ = $2;
     }
 expL:
     expH |
@@ -50,12 +44,16 @@ expPri:
     SUB DOUBLE_LITERAL
     {
         $$ = -1 * $2;
+    } |
+    LB expL RB
+    {
+        $$ = $2;
     };
 %%
 int yyerror(char const *str)
 {
     extern char *yytext;
-    fprintf(stderr, "Parser error near %s\n", yytext);
+    printf("Parser error near %s\n", yytext);
     return 0;
 }
 int main(void)
@@ -65,7 +63,6 @@ int main(void)
     yyin = stdin;
     if(yyparse())
     {
-        fprintf(stderr, "ERROR!\n");
         return 1;
     }
     return 0;
