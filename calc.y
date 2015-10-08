@@ -6,7 +6,7 @@
     double double_value;
 }
 %token <double_value> DOUBLE_LITERAL
-%token ADD SUB MUL DIV CR LB RB
+%token ADD SUB MUL DIV CR LB M RB
 %type <double_value> expL expH expPri
 %%
 all:
@@ -51,6 +51,25 @@ expPri:
     LB expL RB
     {
         $$ = $2;
+    } |
+    expL M expL
+    {
+        double r = 1, tmp = $3;
+        if(tmp == 0)
+            $$ = r;
+        else if(tmp >0)
+            while(tmp)
+            {
+                tmp--;
+                r *= $1;
+            }
+        else if(tmp < 0)
+            while(tmp)
+            {
+                tmp++;
+                r /= $1;
+            }
+        $$ = r;
     };
 %%
 int yyerror(char const *str)

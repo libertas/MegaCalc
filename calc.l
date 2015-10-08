@@ -15,6 +15,7 @@
 "/"    return DIV;
 "("    return LB;
 ")"    return RB;
+"^"    return M;
 "\n"   return CR;
 ([1-9][0-9]*)|0|([0-9]+\.[0-9]*) {
     double tmp;
