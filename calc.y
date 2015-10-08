@@ -52,7 +52,7 @@ expPri:
     {
         $$ = $2;
     } |
-    expL M expL
+    expPri M expPri
     {
         double r = 1, tmp = $3;
         if(tmp == 0)
